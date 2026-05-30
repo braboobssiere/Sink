@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "sink",
+  "name": "a",
   "main": ".output/server/index.mjs",
   "assets": {
     "binding": "ASSETS",
@@ -46,6 +46,6 @@
 //   }
 // ],
   "triggers": {
-    "crons": ["0 0 * * *"] // Run backup task daily at 00:00 UTC
+    "crons": ["20 20 * * *"] // Run backup task daily at 00:00 UTC
   }
 }
