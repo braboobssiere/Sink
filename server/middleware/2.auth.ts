@@ -1,6 +1,6 @@
 import { eventHandler, getHeader, getCookie, createError } from 'h3'
 import { useRuntimeConfig } from '#imports'
-import { verifySessionToken } from '~/server/utils/session'
+import { verifySessionToken } from '~/server/utils/session.ts'
 
 export default eventHandler(async (event) => {
   const path = event.path
