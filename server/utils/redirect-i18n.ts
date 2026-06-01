@@ -37,8 +37,8 @@ export const REDIRECT_TRANSLATIONS = {
     passwordPlaceholder: 'Passwort eingeben',
     passwordError: 'Falsches Passwort',
     continue: 'Weiter',
-    unsafeTitle: 'Hinweis',
-    unsafeDesc: 'Verkürzte URLs können zu schädlichen Websites führen. Überprüfen Sie die vollständige URL, bevor Sie fortfahren.',
+    unsafeTitle: 'Warnung',
+    unsafeDesc: 'Verkürzte URL kann zu einer schädlichen Website führen. Überprüfen Sie die vollständige URL, bevor Sie fortfahren:',
     goBack: 'Zurück',
   },
   'en-US': {
@@ -47,8 +47,8 @@ export const REDIRECT_TRANSLATIONS = {
     passwordPlaceholder: 'Enter password',
     passwordError: 'Incorrect password',
     continue: 'Continue',
-    unsafeTitle: 'Notice',
-    unsafeDesc: 'Shortened URLs may lead to malicious sites. Check the full URL before proceeding.',
+    unsafeTitle: 'Warning',
+    unsafeDesc: 'Shortened URL may lead to harmful site. Check the full URL before proceeding:',
     goBack: 'Go Back',
   },
   'fr-FR': {
@@ -57,8 +57,8 @@ export const REDIRECT_TRANSLATIONS = {
     passwordPlaceholder: 'Entrez le mot de passe',
     passwordError: 'Mot de passe incorrect',
     continue: 'Continuer',
-    unsafeTitle: 'Avis',
-    unsafeDesc: 'Les URL raccourcies peuvent mener à des sites malveillants. Vérifiez l\'URL complète avant de continuer.',
+    unsafeTitle: 'Avertissement',
+    unsafeDesc: "L'URL raccourcie peut mener à un site nuisible. Vérifiez l'URL complète avant de continuer :",
     goBack: 'Retour',
   },
   'id-ID': {
@@ -67,8 +67,8 @@ export const REDIRECT_TRANSLATIONS = {
     passwordPlaceholder: 'Masukkan kata sandi',
     passwordError: 'Kata sandi salah',
     continue: 'Lanjutkan',
-    unsafeTitle: 'Pemberitahuan',
-    unsafeDesc: 'URL yang dipendekkan dapat mengarah ke situs berbahaya. Periksa URL lengkap sebelum melanjutkan.',
+    unsafeTitle: 'Peringatan',
+    unsafeDesc: 'URL yang dipendekkan dapat mengarah ke situs berbahaya. Periksa URL lengkap sebelum melanjutkan:',
     goBack: 'Kembali',
   },
   'it-IT': {
@@ -78,7 +78,7 @@ export const REDIRECT_TRANSLATIONS = {
     passwordError: 'Password errata',
     continue: 'Continua',
     unsafeTitle: 'Avviso',
-    unsafeDesc: 'Gli URL abbreviati possono portare a siti dannosi. Controlla l\'URL completo prima di procedere.',
+    unsafeDesc: "L'URL abbreviata potrebbe portare a un sito dannoso. Controlla l'URL completo prima di procedere:",
     goBack: 'Indietro',
   },
   'pt-BR': {
@@ -88,7 +88,7 @@ export const REDIRECT_TRANSLATIONS = {
     passwordError: 'Senha incorreta',
     continue: 'Continuar',
     unsafeTitle: 'Aviso',
-    unsafeDesc: 'URLs encurtadas podem levar a sites maliciosos. Verifique a URL completa antes de prosseguir.',
+    unsafeDesc: 'URL encurtada pode levar a um site prejudicial. Verifique a URL completa antes de prosseguir:',
     goBack: 'Voltar',
   },
   'pt-PT': {
@@ -98,7 +98,7 @@ export const REDIRECT_TRANSLATIONS = {
     passwordError: 'Palavra-passe incorreta',
     continue: 'Continuar',
     unsafeTitle: 'Aviso',
-    unsafeDesc: 'URLs encurtadas podem levar a sites maliciosos. Verifique o URL completo antes de prosseguir.',
+    unsafeDesc: 'URL encurtada pode levar a um site prejudicial. Verifique o URL completo antes de prosseguir:',
     goBack: 'Voltar',
   },
   'vi-VN': {
@@ -107,8 +107,8 @@ export const REDIRECT_TRANSLATIONS = {
     passwordPlaceholder: 'Nhập mật khẩu',
     passwordError: 'Mật khẩu không đúng',
     continue: 'Tiếp tục',
-    unsafeTitle: 'Thông báo',
-    unsafeDesc: 'URL rút gọn có thể dẫn đến các trang web độc hại. Hãy kiểm tra URL đầy đủ trước khi tiếp tục.',
+    unsafeTitle: 'Cảnh báo',
+    unsafeDesc: 'URL rút gọn có thể dẫn đến trang web độc hại. Kiểm tra URL đầy đủ trước khi tiếp tục:',
     goBack: 'Quay lại',
   },
   'zh-CN': {
@@ -117,8 +117,8 @@ export const REDIRECT_TRANSLATIONS = {
     passwordPlaceholder: '请输入密码',
     passwordError: '密码错误',
     continue: '继续',
-    unsafeTitle: '注意',
-    unsafeDesc: '短链接可能导向恶意网站。请在继续之前检查完整URL。',
+    unsafeTitle: '警告',
+    unsafeDesc: '缩短的URL可能导致有害网站。请在继续之前检查完整URL：',
     goBack: '返回',
   },
   'zh-TW': {
@@ -127,8 +127,8 @@ export const REDIRECT_TRANSLATIONS = {
     passwordPlaceholder: '請輸入密碼',
     passwordError: '密碼錯誤',
     continue: '繼續',
-    unsafeTitle: '注意',
-    unsafeDesc: '短連結可能導向惡意網站。請在繼續之前檢查完整URL。',
+    unsafeTitle: '警告',
+    unsafeDesc: '縮短的URL可能導致有害網站。請在繼續之前檢查完整URL：',
     goBack: '返回',
   },
 } as const satisfies Record<RedirectLocale, RedirectTranslation>
