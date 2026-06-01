@@ -1,31 +1,37 @@
-import { eventHandler, getHeader, createError } from 'h3'
+import { eventHandler, getHeader, getCookie, createError } from 'h3'
 import { useRuntimeConfig } from '#imports'
 import { verifySessionToken } from '~/server/utils/session'
 
 export default eventHandler(async (event) => {
-  const token = getHeader(event, 'Authorization')?.replace(/^Bearer\s+/, '')
   const path = event.path
 
-  // Allow public access to the login endpoint
+  // Allow public access to login endpoint
   if (path === '/api/auth/login') return
 
-  // Protect all other API routes
+  // Protect all API routes
   if (path.startsWith('/api/')) {
+    // 1. Try to get token from cookie (primary)
+    let token = getCookie(event, 'auth_token')
+    
+    // 2. Fallback to Authorization header (for non‑browser clients)
+    if (!token) {
+      token = getHeader(event, 'Authorization')?.replace(/^Bearer\s+/, '')
+    }
+
     if (!token) {
       throw createError({ status: 401, statusText: 'Unauthorized' })
     }
 
     const config = useRuntimeConfig(event)
 
-    // 1. Check static site token (original behaviour)
+    // Check static site token (original behaviour)
     if (token === config.siteToken) {
       return
     }
 
-    // 2. Check admin session token
+    // Check admin session token
     const session = await verifySessionToken(token)
     if (session && session.admin === true) {
-      // Attach session info to context for downstream use (optional)
       event.context.auth = { admin: true, sessionCreated: session.createdAt }
       return
     }
@@ -33,7 +39,8 @@ export default eventHandler(async (event) => {
     throw createError({ status: 401, statusText: 'Unauthorized' })
   }
 
-  if (token && token.length < 8) {
-    throw createError({ status: 401, statusText: 'Token is too short' })
+  // Optional: protect non‑API routes (like /dashboard) if they are server‑rendered
+  if (path.startsWith('/dashboard') && !getCookie(event, 'auth_token')) {
+    return sendRedirect(event, '/login')
   }
 })
