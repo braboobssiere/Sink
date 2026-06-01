@@ -58,7 +58,7 @@ export const REDIRECT_TRANSLATIONS = {
     passwordError: 'Mot de passe incorrect',
     continue: 'Continuer',
     unsafeTitle: 'Avertissement',
-    unsafeDesc: "L'URL raccourcie peut mener à un site nuisible. Vérifiez l'URL complète avant de continuer :",
+    unsafeDesc: 'Le lien raccourci peut mener à un site nuisible. Vérifiez le lien complet avant de continuer :',
     goBack: 'Retour',
   },
   'id-ID': {
@@ -78,7 +78,7 @@ export const REDIRECT_TRANSLATIONS = {
     passwordError: 'Password errata',
     continue: 'Continua',
     unsafeTitle: 'Avviso',
-    unsafeDesc: "L'URL abbreviata potrebbe portare a un sito dannoso. Controlla l'URL completo prima di procedere:",
+    unsafeDesc: 'Il link abbreviato potrebbe portare a un sito dannoso. Controlla il link completo prima di procedere:',
     goBack: 'Indietro',
   },
   'pt-BR': {
