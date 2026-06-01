@@ -11,7 +11,7 @@ const SESSION_PREFIX = 'session_'
 export async function storeSessionToken(
   token: string,
   payload: SessionPayload,
-  ttlSeconds: number = 3600
+  ttlSeconds: number = 86400
 ): Promise<void> {
   const key = `${SESSION_PREFIX}${token}`
   await KV.put(key, JSON.stringify(payload), { expirationTtl: ttlSeconds })
