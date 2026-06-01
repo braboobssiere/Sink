@@ -77,9 +77,10 @@ export async function getLinkByUrl(event: H3Event, targetUrl: string): Promise<L
   const normalizedTarget = normalizeUrl(targetUrl)
   const urlKey = `url:${normalizedTarget}`
   const slug = await KV.get(urlKey, { type: 'text' })
-
   if (slug) {
-    return await getLink(event, slug)
+    const link = await getLink(event, slug)
+    if (link) return link
+    await KV.delete(urlKey)
   }
   return null
 }
@@ -94,6 +95,17 @@ export async function getLinkWithMetadata(event: H3Event, slug: string): Promise
 export async function deleteLink(event: H3Event, slug: string): Promise<void> {
   const { cloudflare } = event.context
   const { KV } = cloudflare.env
+
+  // fetch the link to get its original URL
+  const link = await getLink(event, slug)
+  if (link) {
+    // Delete the reverse index using the normalized URL
+    const normalizedUrl = normalizeUrl(link.url)
+    const urlKey = `url:${normalizedUrl}`
+    await KV.delete(urlKey)
+  }
+
+  // Delete the link itself
   await KV.delete(`link:${slug}`)
 }
 
