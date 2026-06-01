@@ -5,37 +5,6 @@ import { parseURL, stringifyParsedURL } from 'ufo'
 
 type Link = z.infer<typeof LinkSchema>
 
-export function normalizeUrl(url: string): string {
-  // Trim whitespace
-  let trimmedUrl = url.trim()
-  if (!trimmedUrl) return trimmedUrl
-
-  // Check if the URL has a protocol
-  const hasProtocol = /^[a-z][a-z0-9+\-.]*:/i.test(trimmedUrl)
-
-  if (!hasProtocol) {
-    // No protocol – prepend https
-    trimmedUrl = 'https://' + trimmedUrl
-  }
-
-  try {
-    const urlObj = new URL(trimmedUrl)
-
-    // convert http -> https
-    if (urlObj.protocol === 'http:') {
-      urlObj.protocol = 'https:'
-    }
-
-    // Remove trailing slash from path 
-    if (urlObj.pathname !== '/' && urlObj.pathname.endsWith('/')) {
-      urlObj.pathname = urlObj.pathname.slice(0, -1)
-    }
-    return urlObj.toString()
-  } catch {
-    return url
-  }
-}
-
 export function withoutQuery(url: string): string {
   const parsed = parseURL(url)
   return stringifyParsedURL({ ...parsed, search: '' })
@@ -55,34 +24,20 @@ export async function putLink(event: H3Event, link: Link): Promise<void> {
   const { KV } = cloudflare.env
   const expiration = getExpiration(event, link.expiration)
 
-  // Store the link by slug
-  await KV.put(`link:${link.slug}`, JSON.stringify(link), { expiration, metadata: { expiration, url: withoutQuery(link.url), comment: link.comment } })
-
-  // Store reverse index from normalized URL to slug
-  const normalizedUrl = normalizeUrl(link.url)
-  const urlKey = `url:${normalizedUrl}`
-  await KV.put(urlKey, link.slug, { expiration })
+  await KV.put(`link:${link.slug}`, JSON.stringify(link), {
+    expiration,
+    metadata: {
+      expiration,
+      url: withoutQuery(link.url),
+      comment: link.comment,
+    },
+  })
 }
 
 export async function getLink(event: H3Event, slug: string, cacheTtl?: number): Promise<Link | null> {
   const { cloudflare } = event.context
   const { KV } = cloudflare.env
   return await KV.get(`link:${slug}`, { type: 'json', cacheTtl }) as Link | null
-}
-
-export async function getLinkByUrl(event: H3Event, targetUrl: string): Promise<Link | null> {
-  const { cloudflare } = event.context
-  const { KV } = cloudflare.env
-
-  const normalizedTarget = normalizeUrl(targetUrl)
-  const urlKey = `url:${normalizedTarget}`
-  const slug = await KV.get(urlKey, { type: 'text' })
-  if (slug) {
-    const link = await getLink(event, slug)
-    if (link) return link
-    await KV.delete(urlKey)
-  }
-  return null
 }
 
 export async function getLinkWithMetadata(event: H3Event, slug: string): Promise<{ link: Link | null, metadata: Record<string, unknown> | null }> {
@@ -95,17 +50,6 @@ export async function getLinkWithMetadata(event: H3Event, slug: string): Promise
 export async function deleteLink(event: H3Event, slug: string): Promise<void> {
   const { cloudflare } = event.context
   const { KV } = cloudflare.env
-
-  // fetch the link to get its original URL
-  const link = await getLink(event, slug)
-  if (link) {
-    // Delete the reverse index using the normalized URL
-    const normalizedUrl = normalizeUrl(link.url)
-    const urlKey = `url:${normalizedUrl}`
-    await KV.delete(urlKey)
-  }
-
-  // Delete the link itself
   await KV.delete(`link:${slug}`)
 }
 
