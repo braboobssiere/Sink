@@ -1,4 +1,4 @@
-import { defineEventHandler, readBody, createError } from 'h3'
+import { defineEventHandler, readBody, createError, setCookie } from 'h3'
 import { useRuntimeConfig } from '#imports'
 import { storeSessionToken } from '~/server/utils/session'
 
@@ -11,12 +11,19 @@ export default defineEventHandler(async (event) => {
   }
 
   if (username === config.adminUsername && password === config.adminPassword) {
-    // Generate a secure random token
     const sessionToken = crypto.randomUUID()
     await storeSessionToken(sessionToken, { admin: true, createdAt: Date.now() })
 
-    // Return the session token – the frontend will store it
-    return { token: sessionToken }
+    // Set httpOnly cookie – automatically sent with every request
+    setCookie(event, 'auth_token', sessionToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 86400, // 24 hour
+    })
+
+    return { success: true }
   }
 
   throw createError({ statusCode: 401, message: 'Invalid admin credentials' })
