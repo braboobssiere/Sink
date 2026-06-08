@@ -8,7 +8,6 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const linksStore = useDashboardLinksStore()
-const linksSearchStore = useDashboardLinksSearchStore()
 
 async function deleteLink() {
   try {
@@ -18,7 +17,6 @@ async function deleteLink() {
         slug: props.link.slug,
       },
     })
-    linksSearchStore.syncLink(props.link, 'delete')
     linksStore.notifyLinkUpdate(props.link, 'delete')
     toast(t('links.delete_success'))
   }
