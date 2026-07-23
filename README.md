@@ -1,6 +1,6 @@
 # ⚡ Sink
 
-**A Simple / Speedy / Secure Link Shortener with Analytics, 100% run on Cloudflare.**
+**A Simple / Speedy / Secure Link Shortener with Analytics, 100% run on Cloudflare. **
 
 <a href="https://trendshift.io/repositories/10421" target="_blank">
   <img
