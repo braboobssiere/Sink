@@ -62,21 +62,6 @@
 - **📦 Import/Export:** Transfer links via JSON and export access analytics via CSV.
 - **🌍 Multi-language:** Full i18n support for dashboard and redirect pages.
 
-> [!TIP]
-> **Who is Sink for?**
->
-> Sink focuses on **individuals and small teams** who want a simple, self-hosted shortener on Cloudflare.
->
-> For professional / business needs (managed service, multi-user, SLA, and more), use **[S.EE](https://sink.cool/see)**.
-
-## 🪧 Demo
-
-Experience the demo at [Sink.Cool](https://sink.cool/dashboard). Log in using the Site Token below:
-
-```txt
-Site Token: SinkCool
-```
-
 <details>
   <summary><b>Screenshots</b></summary>
   <img alt="Analytics" src="./docs/images/sink.cool_dashboard.png"/>
@@ -168,8 +153,3 @@ We currently do not support native MCP Server, but we have OpenAPI documentation
 2. [**NuxtHub**](https://hub.nuxt.com/)
 3. [**Astroship**](https://astroship.web3templates.com/)
 4. [**Tailark**](https://tailark.com/)
-
-## ☕ Sponsor
-
-1. [Follow Me on X(Twitter)](https://404.li/x).
-2. [Become a sponsor to on GitHub](https://github.com/sponsors/miantiao-me).
