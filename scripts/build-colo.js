@@ -2,7 +2,7 @@ import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 async function main() {
-  const locations = await fetch('https://raw.githubusercontent.com/Netrvin/cloudflare-colo-list/refs/heads/main/locations.json', {
+  const locations = await fetch('https://cdn.jsdelivr.net/gh/Netrvin/cloudflare-colo-list@main/locations.json', {
     signal: AbortSignal.timeout(10_000),
   })
   if (!locations.ok) {

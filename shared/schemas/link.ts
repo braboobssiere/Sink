@@ -23,7 +23,7 @@ if (!Number.isSafeInteger(configuredMaxUrlLength)
 
 export const MAX_URL_LENGTH = configuredMaxUrlLength
 
-export const nanoid = (length: number = slugDefaultLength) => customAlphabet('23456789abcdefghjkmnpqrstuvwxyz', length)
+export const nanoid = (length: number = slugDefaultLength) => customAlphabet('23456789abcdefghijkmnpqrstuvwxyz', length)
 
 const GeoSchema = z.preprocess((value) => {
   if (!value || typeof value !== 'object' || Array.isArray(value))
